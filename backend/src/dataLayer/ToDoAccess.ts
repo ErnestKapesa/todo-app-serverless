@@ -5,10 +5,12 @@ import { TodoItem } from "../models/TodoItem";
 import { TodoUpdate } from "../models/TodoUpdate";
 
 
-export class ToDoAccess {
-    constructor(
-        private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
-        private readonly s3Client: Types = new AWS.S3({ signatureVersion: 'v4' }),
+const AWSXRay = require('aws-xray-sdk');
+
+export class TodoAccess {
+  constructor(
+        private readonly docClient: DocumentClient = new AWSXRay.DynamoDB.DocumentClient(),
+        private readonly s3Client: Types = new AWSXRay.S3({ signatureVersion: 'v4' }),
         private readonly todoTable = process.env.TODOS_TABLE,
         private readonly s3BucketName = process.env.S3_BUCKET_NAME) {
     }
